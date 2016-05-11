@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:必须与对应的接口全类名一致 id:必须与对应接口的某个方法名一致 -->
+<mapper namespace="dao.cartmapper">
+
+
+
+	<resultMap id="cart" type="cartBean">
+		<id property="productid" column="productid" />
+		<id property="userid" column="userid" />
+		<result property="pname" column="pname" />
+		<result property="price" column="price" />
+		<result property="number" column="number" />
+		<result property="status" column="status" />	
+	</resultMap>
+	
+		<!--按照userid查询商品  -->
+	<select id="selectByUserid" parameterType="String" resultMap="cart">
+	select * from shoppinngcart where userid=#{userid}
+	</select>
+    
+    
+    <!-- 删除指定商品 -->
+    <delete id="deleteByid"  parameterType="int">
+    delete from shoppinngcart where userid=#{userid} and productid=#{productid}
+    </delete>
+    
+    <!-- 修改购物车状态 -->
+    <update id="upstatus" parameterType="int">
+    update shoppinngcart set status="submitted" where userid=#{userid} and productid=#{productid}
+    </update>
+</mapper>

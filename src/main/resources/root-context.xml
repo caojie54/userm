@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="com.ztpx.service" />
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb" />
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password" value="Caojie1225" />
+		<property name="filters">
+			<value>stat</value>
+		</property>
+		<property name="maxActive">
+			<value>20</value>
+		</property>
+		<property name="initialSize">
+			<value>1</value>
+		</property>
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="minIdle">
+			<value>1</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>60000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>300000</value>
+		</property>
+		<property name="validationQuery">
+			<value>SELECT 'x'</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<property name="poolPreparedStatements">
+			<value>true</value>
+		</property>
+		<property name="maxOpenPreparedStatements">
+			<value>20</value>
+		</property>
+	</bean>
+
+
+	<!-- 配置JDBCTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+
+	<!-- 配置mybatis -->
+	<bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:myBatis-config.xml" />
+		<!-- 配置mapperXML配置文件的扫描路径 -->
+		<property name="mapperLocations" value="classpath:mapper.**.xml" />
+	</bean>
+
+
+
+	<!-- 配置mapper类的扫描路径 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ztpx.dao" />
+		<property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory" />
+	</bean>
+
+	<!--异步线程执行器 -->
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+
+		<property name="corePoolSize" value="10" />
+
+		<property name="maxPoolSize" value="30" />
+
+	</bean>
+</beans>

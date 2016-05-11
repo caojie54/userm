@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>找回密码</title>
+
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.nav {
+	width: 100%;
+	height: 30px;
+	background-color: #CCC;
+}
+
+.container {
+	width: 100%;
+	height: 700px;
+	background-color: #EEE;
+}
+
+.regTitle {
+	width: 140px;
+	height: 40px;
+	margin-left: 400px;
+	margin-top: 20px;
+	padding-left: 12px;
+	font-size: 28px;
+	font-weight: bold;
+	color: blue;
+	background-color: #FFF;
+	border: 1px solid #CCC;
+	border-bottom: none;
+}
+
+.regBody {
+	width: 800px;
+	height: 500px;
+	background-color: #FFF;
+	margin: 0 auto;
+	padding-top: 100px;
+	background:lightblue;
+}
+
+
+.info {
+	width: 100%;
+	height: 80px;
+	font-size: 30px;
+	text-align: center;
+    background:lightblue;
+    color:#FF3366;
+}
+#Username{
+    width:300px;
+}
+#sub{
+    margin-top:30px;
+    margin-right:250px;
+    float:right;
+    font-size:20px;
+    text-align:center;
+}
+.cc{
+    margin-left:200px;
+}
+.message{
+  	position: relative;
+	width:200px;
+	text-align:center;
+	top:50px;
+	left:200px;  
+}
+
+</style>
+
+</head>
+<body>
+	<div class="nav">导航条</div>
+	<div class="container">
+		<div class="regTitle">${title}</div>
+		<div class="regBody">
+			<div class="info">${message}</div>
+
+		  <div class="alert alert-danger message" role="alert" style="display:none;"></div>
+		</div>
+	</div>
+
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script>
+	$(function(){
+		var i=5;
+		$(".message").css("display","block");
+		$(".message").html(i+"秒后返回登录");
+		var timer=setInterval(function(){i--;$(".message").html(i+"秒后返回登录");},1000);
+		setTimeout(function(){clearInterval(timer);window.location.href="login";},3000);
+	});
+	
+	</script>
+</body>
+</html>

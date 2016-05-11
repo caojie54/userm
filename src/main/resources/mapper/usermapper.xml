@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:必须与对应的接口全类名一致 id:必须与对应接口的某个方法名一致 -->
+<mapper namespace="com.ztpx.dao.UserInfo.usermapper">
+
+	<resultMap id="userResultMap" type="UserInfoBean">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="nickname" column="nickname" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="birthday" column="birthday" />
+		<result property="telNum" column="telNum" />
+		<result property="shopping_address" column="shopping_address" />
+		<result property="active" column="active" />
+		<result property="isOnline" column="isOnline" />
+		<result property="commonLocation" column="commonLocation" />
+	</resultMap>
+	
+	<!-- 查询指定ID的用户 -->
+	<select id="selectById" parameterType="int" resultMap="userResultMap" resultType="UserInfoBean">
+		select * from userinfo 
+		where id=#{id}
+	</select>
+	
+	<!-- 查询所有的用户 -->
+	<select id="selectAll" resultMap="userResultMap" resultType="list">
+		select * from userinfo 
+	</select>
+	
+	<!-- 查询指定用户名的用户信息 -->
+	<select id="selectByUsername" parameterType="String" resultMap="userResultMap" resultType="UserInfoBean">
+		select * from userinfo
+		where username=#{name}
+	</select>
+	
+	<!-- 查询指定邮箱的用户信息 -->
+	<select id="selectByEmail" parameterType="String" resultMap="userResultMap" resultType="UserInfoBean">
+		select * from userinfo
+		where email=#{email}
+	</select>
+	
+	<!-- 插入用户 -->
+	<insert id="insert" parameterType="UserInfoBean" useGeneratedKeys="true" keyProperty="id">
+		insert into userinfo(username,password,nickname,email,gender,
+							 birthday,telNum,shopping_address,active,
+							 isOnline,commonLocation)
+		values(#{username},
+			   #{password},
+			   #{nickname},
+			   #{email},
+			   #{gender},
+			   #{birthday},
+			   #{telNum},
+			   #{shopping_address},
+			   #{active},
+			   #{isOnline},
+			   #{commonLocation})
+	</insert>
+	
+	<!-- 更改指定ID的用户信息 -->
+	<update id="updateById">
+		update userinfo 
+		set  username=#{user.username},
+			 password=#{user.password},
+			 nickname=#{user.nickname},
+			 email=#{user.email},
+			 gender=#{user.gender},
+			 birthday=#{user.birthday},
+			 telNum=#{user.telNum},
+			 shopping_address=#{user.shopping_address},
+			 active=#{user.active},
+			 isOnline=#{user.isOnline},
+			 commonLocation=#{user.commonLocation}
+		where id=#{userId}
+	</update>
+		
+	<!-- 删除指定ID的用户 -->
+	<delete id="delete" parameterType="int">
+		delete from userinfo
+		where id=#{id}
+	</delete>
+
+</mapper>

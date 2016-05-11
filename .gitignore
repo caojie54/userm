@@ -1,0 +1,3 @@
+/target/
+#忽略.project文件
+*.project

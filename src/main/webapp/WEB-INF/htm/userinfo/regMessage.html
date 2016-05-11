@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>新用户注册</title>
+
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.mmm{margin:0;}
+
+.container {
+	width: 100%;
+	height: 700px;
+	background-color: #EEE;
+	top: 30px;
+}
+
+
+
+.regBody {
+	width: 800px;
+	height: 500px;
+	background-color: #FFF;
+	margin: 0 auto;
+	padding-top:100px;
+	padding-left:100px;
+}
+
+.message_title{
+	
+	color:blue;
+	width:300px;
+	
+	font-size:30px;
+	font-weight:bold;
+}
+
+.message{
+	color:red;
+	width:300px;
+	margin:20px auto;
+	font-size:20px;
+	text-align:center;
+}
+
+</style>
+
+</head>
+<body>
+	<nav class="navbar navbar-default mmm">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index">首页</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="login">登录</a></li>
+					
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+		<div class="regBody">
+			
+			<div class="message_title" role="alert">${title}</div>
+			<div class="alert alert-success message" role="alert">${message}!</div>
+			
+		</div>
+	</div>
+
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+</body>
+</html>

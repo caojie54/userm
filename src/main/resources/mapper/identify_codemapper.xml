@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:必须与对应的接口全类名一致 id:必须与对应接口的某个方法名一致 -->
+<mapper namespace="com.ztpx.dao.UserInfo.identify_codemapper">
+
+	<resultMap id="identify_codeResultMap" type="identify_codeBean">
+		<id property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="identify_code" column="identify_code" />
+	</resultMap>
+	
+	<!-- 查询指定UserID的验证码 -->
+	<select id="selectByUserId" parameterType="int" resultMap="identify_codeResultMap" resultType="identify_codeBean">
+		select * from identify_code 
+		where userId=#{UserId}
+	</select>
+	
+	<!-- 插入一个验证码数据 -->
+	<insert id="insert" parameterType="identify_codeBean" useGeneratedKeys="true" keyProperty="id">
+		insert into identify_code(userId,identify_code)
+		values(#{userId},#{identify_code})
+	</insert>
+	
+	<!-- 删除一个验证码数据 -->
+	<delete id="delete" parameterType="int">
+		delete from identify_code
+		where id=#{id}
+	</delete>
+
+</mapper>

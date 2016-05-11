@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>编辑资料</title>
+
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.mmm {
+	margin: 0;
+}
+
+.container {
+	width: 100%;
+	height: 700px;
+	background-color: #EEE;
+	position: absolute;
+	top: 50px;
+}
+
+.regTitle {
+	width: 140px;
+	height: 40px;
+	margin-left: 400px;
+	margin-top: 20px;
+	padding-left: 12px;
+	font-size: 28px;
+	font-weight: bold;
+	color: red;
+	background-color: #FFF;
+	border: 1px solid #CCC;
+	border-bottom: none;
+}
+
+.regBody {
+	width: 800px;
+	height: 600px;
+	background-color: #FFF;
+	margin: 0 auto;
+}
+
+#add-user-div {
+	padding-top: 30px;
+}
+
+.formdiv {
+	margin-top: 20px;
+	padding-left: 50px;
+}
+
+.pwdinput {
+	width: 300px;
+}
+
+.gender_input {
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	display: inline;
+}
+
+.gender_input input {
+	margin-top: 10px;
+}
+
+.gender_label {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.ad {
+	position: absolute;
+	left: 850px;
+	top: 150px;
+}
+</style>
+
+</head>
+<body>
+	<nav class="navbar navbar-default mmm">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="login">首页</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">${user.nickname}</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">个人中心 <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="modifyInfo?userid=${user.id}">修改个人资料</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="login">退出登录</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+		<div class="regTitle">编辑资料</div>
+		<div class="regBody">
+			<div id="add-user-div">
+				<form class="form-horizontal" id="add-user-form">
+					<!-- 隐藏input,保存当前用户的id -->
+					<input style="display: none;" name="id" value="${user.id}" />
+					<div class="form-group formdiv">
+						<label for="nickname" class="col-sm-2 control-label pwdlabel">昵称:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="text" class="form-control" id="nickname"
+								name="nickname" placeholder="输入昵称" value="${user.nickname}">
+						</div>
+					</div>
+					<div class="form-group formdiv">
+						<label class="col-sm-2 control-label pwdlabel">性别:</label>
+						<div class="col-sm-10">
+							<div class="gender_input">
+								<input type="radio" id="male" name="gender" value=0 <%if(user.gender==0)
+								print("checked");%>>
+							</div>
+							<label for="male" class="gender_label">男</label>
+							<div class="gender_input">
+								<input type="radio" id="female" name="gender" value=1 <%if(user.gender==1)
+								print("checked");%>>
+							</div>
+							<label for="female" class="gender_label">女</label>
+						</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="birthday" class="col-sm-2 control-label pwdlabel">生日:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="text" class="form-control" id="birthday"
+								name="birthday" placeholder="输入年份-月份-日期"
+								value="${user.birthday}">
+						</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="password" class="col-sm-2 control-label pwdlabel">*修改密码:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="password" class="form-control" id="password"
+								name="password" placeholder="输入密码" value="${user.password}">
+						</div>
+						<div style="color: red; padding-top: 8px; display: none;"
+							id="checkPwd">密码过于简单！</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="repassword" class="col-sm-2 control-label pwdlabel">*确认密码:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="password" class="form-control" id="repassword"
+								placeholder="确认密码" value="${user.password}">
+						</div>
+						<div style="color: red; padding-top: 8px; display: none;"
+							id="checkRePwd">两次密码不一致！</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="email" class="col-sm-2 control-label pwdlabel">*修改邮箱:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="email" class="form-control" id="email" name="email"
+								placeholder="输入邮箱" value="${user.email}">
+						</div>
+						<div style="color: red; padding-top: 8px; display: none;"
+							id="checkemail">该邮箱已被注册！</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="telNum" class="col-sm-2 control-label pwdlabel">手机号:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="number" class="form-control" id="telNum"
+								name="telNum" placeholder="输入手机号" value="${user.telNum}">
+						</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="shopping_address"
+							class="col-sm-2 control-label pwdlabel">收货地址:</label>
+						<div class="col-sm-10 pwdinput">
+							<input type="text" class="form-control" id="shopping_address"
+								name="shopping_address" placeholder="输入收货地址"
+								value="${user.shopping_address}">
+						</div>
+					</div>
+					<div class="form-group formdiv">
+						<label for="identify_code" class="col-sm-2 control-label pwdlabel">*验证码:</label>
+						<div class="col-sm-10" style="width: 150px;">
+							<input type="text" class="form-control" id="identify_code"
+								placeholder="输入验证码">
+						</div>
+						<div style="float: left">
+							<img id="codeImage" src="getCode"
+								style="margin-left: 15px; width: 120px; height: 35px; cursor: pointer;" />
+						</div>
+						<div
+							style="color: red; padding-top: 8px; display: none; float: left; margin-left: 15px;"
+							id="checkIdCode">验证码输入错误！</div>
+					</div>
+					<div class="form-group formdiv">
+						<div class="col-sm-offset-2 col-sm-10 btndiv">
+							<button type="button" class="btn btn-danger"
+								style="width: 200px; height: 40px; font-size: 20px;"
+								id="register">保存修改</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="ad">
+				<img src="/assets/img/phone-bg.jpg" />
+			</div>
+		</div>
+	</div>
+
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var status = false;
+		$(function() {
+
+			//邮箱输入框失去焦点时向后台查询该邮箱是否存在  
+			$("#email").blur(function() {
+
+				var email = $("#email").val();
+				if (!(email.indexOf("@") > 0 && email.indexOf(".com") > 0)) {
+					$("#checkemail").css("display", "block");
+					$("#checkemail").text("请输入正确的邮箱地址!");
+					$("#email").css("border", "1px solid red");
+					status = false;
+				} else {
+					$("#checkemail").css("display", "none");
+					$("#checkemail").text("该邮箱已被注册!");
+					$("#email").css("border", "1px solid #ccc");
+					status = true;
+
+					$.post("selectByEmail", {
+						email : $("#email").val()
+					}, function(data) {
+						if (data == "ok") {
+							$("#checkemail").css("display", "none");
+							$("#email").css("border", "1px solid #ccc");
+							status = true;
+						} else {
+							$("#checkemail").css("display", "block");
+							$("#email").css("border", "1px solid red");
+							status = false;
+						}
+					});
+				}
+
+			});
+
+			//检测密码位数 
+			$("#password").blur(function() {
+				if ($("#password").val().length < 5) {
+					$("#checkPwd").css("display", "block");
+					$("#password").css("border", "1px solid red");
+					status = false;
+				} else {
+					$("#checkPwd").css("display", "none");
+					$("#password").css("border", "1px solid #ccc");
+					status = true;
+				}
+			});
+
+			//检测两次输入的密码是否一致
+			$("#repassword").on("blur", function() {
+				if ($("#repassword").val() == $("#password").val()) {
+					$("#checkRePwd").css("display", "none");
+					$("#repassword").css("border", "1px solid #ccc");
+					status = true;
+				} else {
+					$("#checkRePwd").css("display", "block");
+					$("#repassword").css("border", "1px solid red");
+					status = false;
+				}
+			});
+
+			//刷新验证码      		
+			$("#codeImage").on("click", function() {
+				$("#codeImage").attr("src", "getCode?t=" + Math.random());
+			});
+
+			//检测验证码是否正确 
+			$("#identify_code").on("blur", function() {
+				$.post("checkCode", {
+					idenCode : $("#identify_code").val()
+				}, function(data) {
+					if (data == "ok") {
+						$("#checkIdCode").css("display", "none");
+						$("#identify_code").css("border", "1px solid #ccc");
+						status = true;
+					} else {
+						$("#checkIdCode").css("display", "block");
+						$("#identify_code").css("border", "1px solid red");
+						status = false;
+					}
+				});
+			});
+
+			//单击保存修改按钮  
+			$("#register").on(
+					"click",
+					function() {
+						if($("#identify_code").val()== ""){
+							$("#checkIdCode").css("display", "block");
+							$("#identify_code").css("border", "1px solid red");
+						}
+						
+						
+						if (status == "true") {
+							$.post("modifyInfo", $("#add-user-form")
+									.serialize(), function(data, status) {
+								if (data == "ok") {
+									alert("修改成功！");
+									window.location.href="index";
+								} else {
+									alert("系统已向您输入的邮箱发送了一封验证邮件，请登录您的邮箱进行验证！");
+								}
+							});
+						}
+						
+					});
+
+		});
+	
+	</script>
+</body>
+</html>
